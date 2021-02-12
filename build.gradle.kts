@@ -20,10 +20,12 @@ repositories {
     mavenCentral()
 }
 
-subprojects {
+allprojects {
     group = "br.com.guiabolso"
     version = "1.0.0"
+}
 
+subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "kotlin-spring")
     apply(plugin = "jacoco")
@@ -97,3 +99,7 @@ fun DependencyHandler.spring(module: String): Any =
 @Suppress("unused")
 fun DependencyHandler.eventsProtocol(module: String): Any =
     "br.com.guiabolso:$module:${rootProject.extra.get("events-version")}"
+
+tasks.register("version") {
+    this.doLast { println(project.version) }
+}
