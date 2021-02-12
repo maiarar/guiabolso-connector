@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: BUilding and getting environments from project
+      - name: Building and getting environments from project
         run: |
           ./gradlew build
           echo "GUIABOLSO_CONNECTOR_VERSION=$(./gradlew version)" >> $GITHUB_ENV
@@ -29,6 +29,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: show environments
+        run: |
+          echo ${{ env.GUIABOLSO_CONNECTOR_VERSION }}
+          echo ${{ env.DATADOG_VERSION }}
       - name: Build and push release tag
         id: docker_build_tag
         uses: docker/build-push-action@v2
